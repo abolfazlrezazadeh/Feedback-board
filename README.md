@@ -74,7 +74,7 @@ A full-stack feedback management application built with NestJS and MongoDB. User
 
 ```bash
 # 1. Clone the repository
-git clone <repo-url>
+git clone https://github.com/abolfazlrezazadeh/Feedback-board.git
 cd feedback-board
 
 # 2. Install dependencies
