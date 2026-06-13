@@ -6,6 +6,8 @@ A full-stack feedback management application built with NestJS and MongoDB. User
 
 - **Submit Feedback** — Public form with client-side validation to submit feedback (title + message)
 - **Admin Dashboard** — Protected dashboard with summary cards and a data table to manage feedbacks
+- **Search** — Filter feedbacks by title with real-time search (300ms debounce)
+- **Status Filter** — Filter feedbacks by status (NEW / IN_REVIEW / RESOLVED)
 - **Status Management** — Triage feedbacks through three states: NEW → IN_REVIEW → RESOLVED
 - **Session Authentication** — Simple username/password login to protect the admin area
 - **Dark Theme UI** — Clean Bootstrap 5 dark mode interface
@@ -173,6 +175,21 @@ Create a new feedback.
 
 List all feedbacks sorted by newest first.
 
+**Query Parameters:**
+
+| Param | Type | Description |
+|-------|------|-------------|
+| `search` | `string` (optional) | Case-insensitive title search via MongoDB regex |
+| `status` | `string` (optional) | Filter by status: `NEW`, `IN_REVIEW`, or `RESOLVED` |
+
+**Examples:**
+
+```
+GET /api/feedbacks?search=login
+GET /api/feedbacks?status=NEW
+GET /api/feedbacks?search=login&status=IN_REVIEW
+```
+
 **Response:** `200 OK`
 
 ```json
@@ -241,6 +258,8 @@ Update the status of a feedback.
 - **Session auth over JWT** — Simpler for a single-admin dashboard; no token management needed. Sessions are stored in memory (no Redis requirement)
 - **Express session (memory store)** — Suitable for a take-home assignment scope. In production, swap to a database-backed store (connect-mongo)
 - **Vanilla JS** — No frontend framework dependency; keeps the bundle small and the code approachable for reviewers
+- **Debounced search** — Client-side 300ms debounce on the search input avoids excessive API calls while typing
+- **Combined filters** — Search and status filter compose together in a single API request, keeping the backend simple
 - **Bootstrap 5 dark theme** — Provides a polished, responsive UI with zero custom CSS for layout; `data-bs-theme="dark"` gives a professional look
 - **Confirmation modal** — Prevents accidental status changes; better UX than an immediate PATCH on dropdown change
 - **Loading skeleton** — Improves perceived performance compared to a blank table while data is fetched
