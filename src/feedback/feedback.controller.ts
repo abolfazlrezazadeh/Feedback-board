@@ -14,18 +14,21 @@ import { UpdateStatusDto } from './dto/update-status.dto';
 export class FeedbackController {
   constructor(private readonly feedbackService: FeedbackService) {}
 
+  /** Create a new feedback entry */
   @Post()
   async create(@Body() dto: CreateFeedbackDto) {
     const feedback = await this.feedbackService.create(dto);
     return { data: feedback };
   }
 
+  /** List all feedbacks, newest first */
   @Get()
   async findAll() {
     const feedbacks = await this.feedbackService.findAll();
     return { data: feedbacks };
   }
 
+  /** Transition a feedback to a new status (NEW / IN_REVIEW / RESOLVED) */
   @Patch(':id/status')
   async updateStatus(
     @Param('id') id: string,

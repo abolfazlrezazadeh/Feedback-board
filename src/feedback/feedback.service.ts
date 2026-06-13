@@ -15,15 +15,21 @@ export class FeedbackService {
     private feedbackModel: Model<FeedbackDocument>,
   ) {}
 
+  /** Persist a new feedback with default NEW status */
   async create(dto: CreateFeedbackDto): Promise<FeedbackDocument> {
     const feedback = new this.feedbackModel(dto);
     return feedback.save();
   }
 
+  /** Retrieve all feedbacks sorted by most recent first */
   async findAll(): Promise<FeedbackDocument[]> {
     return this.feedbackModel.find().sort({ createdAt: -1 }).exec();
   }
 
+  /**
+   * Update the status of a feedback document.
+   * Throws NotFoundException when the id does not match any document.
+   */
   async updateStatus(
     id: string,
     dto: UpdateStatusDto,
