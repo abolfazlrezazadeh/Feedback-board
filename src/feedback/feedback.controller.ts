@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { FeedbackService } from './feedback.service';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
@@ -23,8 +24,8 @@ export class FeedbackController {
 
   /** List all feedbacks, newest first */
   @Get()
-  async findAll() {
-    const feedbacks = await this.feedbackService.findAll();
+  async findAll(@Query('search') search?: string) {
+    const feedbacks = await this.feedbackService.findAll(search);
     return { data: feedbacks };
   }
 

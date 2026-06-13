@@ -57,10 +57,18 @@
     resolvedCount.textContent = '0';
   }
 
+  let searchTerm = '';
+  const searchInput = document.getElementById('searchInput');
+  const emptyStateTitle = document.getElementById('emptyStateTitle');
+  const emptyStateMessage = document.getElementById('emptyStateMessage');
+
   async function loadFeedbacks() {
     showLoading();
     try {
-      const res = await fetch(API_BASE);
+      const params = new URLSearchParams();
+      if (searchTerm) params.set('search', searchTerm);
+      const url = params.toString() ? `${API_BASE}?${params}` : API_BASE;
+      const res = await fetch(url);
       if (!res.ok) throw new Error('Failed to fetch feedbacks');
       const json = await res.json();
       renderFeedbacks(json.data);
@@ -73,7 +81,15 @@
     loadingSkeleton.classList.add('d-none');
 
     if (!feedbacks || feedbacks.length === 0) {
-      showEmpty();
+      if (searchTerm) {
+        showEmpty();
+        emptyStateTitle.textContent = 'No feedbacks found.';
+        emptyStateMessage.textContent = `No feedbacks match "${searchTerm}".`;
+      } else {
+        showEmpty();
+        emptyStateTitle.textContent = 'No feedbacks yet';
+        emptyStateMessage.textContent = 'Submit feedbacks from the form page and they will appear here.';
+      }
       return;
     }
 
@@ -190,6 +206,15 @@
     confirmStatusChange();
   });
   retryBtn.addEventListener('click', loadFeedbacks);
+
+  let debounceTimer;
+  searchInput.addEventListener('input', function () {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      searchTerm = this.value.trim();
+      loadFeedbacks();
+    }, 300);
+  });
 
   loadFeedbacks();
 })();
