@@ -1,0 +1,94 @@
+body {
+  background-color: #212529;
+  min-height: 100vh;
+}
+
+.navbar {
+  box-shadow: 0 1px 0 rgba(255,255,255,.05);
+}
+
+.card {
+  background-color: #2b3035;
+  border-color: #495057;
+}
+
+.card.border-primary { border-color: #0d6efd !important; }
+.card.border-secondary { border-color: #6c757d !important; }
+.card.border-warning { border-color: #ffc107 !important; }
+.card.border-success { border-color: #198754 !important; }
+
+.form-control {
+  background-color: #1a1d20;
+  border-color: #495057;
+  color: #dee2e6;
+}
+
+.form-control:focus {
+  background-color: #1a1d20;
+  border-color: #0d6efd;
+  color: #dee2e6;
+  box-shadow: 0 0 0 .2rem rgba(13,110,253,.15);
+}
+
+.form-control::placeholder {
+  color: #6c757d;
+}
+
+.form-select {
+  background-color: #1a1d20;
+  border-color: #495057;
+  color: #dee2e6;
+}
+
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 .2rem rgba(13,110,253,.15);
+}
+
+.btn-primary {
+  --bs-btn-bg: #0d6efd;
+  --bs-btn-border-color: #0d6efd;
+}
+
+.table {
+  --bs-table-color: #dee2e6;
+  --bs-table-bg: transparent;
+  --bs-table-hover-bg: #3a3f44;
+}
+
+.table-dark {
+  --bs-table-bg: #1a1d20;
+}
+
+.badge {
+  font-weight: 500;
+}
+
+.toast {
+  background-color: #2b3035;
+  border-color: #495057;
+}
+
+.toast-header {
+  background-color: #1a1d20;
+  color: #dee2e6;
+  border-bottom-color: #495057;
+}
+
+.placeholder {
+  background-color: #495057;
+}
+
+.modal-content {
+  background-color: #2b3035;
+  border-color: #495057;
+}
+
+.modal-header,
+.modal-footer {
+  border-color: #495057;
+}
+
+.btn-close {
+  filter: invert(1) brightness(0.8);
+}
