@@ -95,6 +95,31 @@ cp .env.example .env
 | `ADMIN_PASSWORD` | `123456` | Admin login password |
 | `SESSION_SECRET` | — | Secret used to sign session cookies |
 
+## Running with Docker
+
+### Build and Start
+
+```bash
+docker compose up --build
+```
+
+### Stop
+
+```bash
+docker compose down
+```
+
+### Application URLs
+
+User page:
+http://localhost:3000/feedback
+
+Admin page:
+http://localhost:3000/admin
+
+Login page:
+http://localhost:3000/login
+
 ## Running Locally
 
 ```bash
