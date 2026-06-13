@@ -14,12 +14,18 @@ import { Request, Response } from 'express';
 export class AuthController {
   constructor(private configService: ConfigService) {}
 
+  /** Render the login page */
   @Get('/login')
   @Render('login')
   loginPage() {
     return {};
   }
 
+  /**
+   * Authenticate admin credentials against env-configurable values.
+   * On success, stores user in session and redirects to /admin.
+   * On failure, re-renders login with an error message.
+   */
   @Post('/login')
   login(
     @Body() body: { username: string; password: string },
@@ -40,6 +46,7 @@ export class AuthController {
     return res.render('login', { error: 'Invalid username or password' });
   }
 
+  /** Destroy the session and redirect to login */
   @Post('/logout')
   logout(@Req() req: Request, @Res() res: Response) {
     req.session.destroy(() => {
