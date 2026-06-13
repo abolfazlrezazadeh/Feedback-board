@@ -47,6 +47,10 @@ A full-stack feedback management application built with NestJS and MongoDB. User
 │   ├── feedback.ejs              # Submit feedback page
 │   └── admin.ejs                 # Admin dashboard
 ├── public/
+│   ├── images/
+│   │   ├── admin-login.png
+│   │   ├── feedback-page.png
+│   │   └── admin-dashboard.png
 │   ├── css/style.css             # Custom dark theme styles
 │   └── js/
 │       ├── feedback.js           # Form submission logic
@@ -182,14 +186,27 @@ Update the status of a feedback.
 
 ## Screenshots
 
-> *Screenshots would be added here for the take-home submission.*
+### Login Page
 
-| Page | Description |
-|------|-------------|
-| Submit Feedback | Form with title input, message textarea, validation feedback, success alert |
-| Admin Dashboard | 4 summary cards (Total, New, In Review, Resolved) + data table |
-| Login | Clean sign-in form with error handling |
-| Status Confirmation | Modal dialog confirming status changes |
+![Admin Login](public/images/admin-login.png)
+
+*Admin authentication page.*
+
+---
+
+### Feedback Submission Page
+
+![Feedback Form](public/images/feedback-page.png)
+
+*Users can submit feedback with title and message.*
+
+---
+
+### Admin Dashboard
+
+![Admin Dashboard](public/images/admin-dashboard.png)
+
+*Administrators can review feedback and update statuses.*
 
 ## Design Decisions
 
