@@ -24,8 +24,11 @@ export class FeedbackController {
 
   /** List all feedbacks, newest first */
   @Get()
-  async findAll(@Query('search') search?: string) {
-    const feedbacks = await this.feedbackService.findAll(search);
+  async findAll(
+    @Query('search') search?: string,
+    @Query('status') status?: string,
+  ) {
+    const feedbacks = await this.feedbackService.findAll(search, status);
     return { data: feedbacks };
   }
 

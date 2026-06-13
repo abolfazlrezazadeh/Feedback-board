@@ -58,7 +58,9 @@
   }
 
   let searchTerm = '';
+  let statusFilter = '';
   const searchInput = document.getElementById('searchInput');
+  const statusFilterEl = document.getElementById('statusFilter');
   const emptyStateTitle = document.getElementById('emptyStateTitle');
   const emptyStateMessage = document.getElementById('emptyStateMessage');
 
@@ -67,6 +69,7 @@
     try {
       const params = new URLSearchParams();
       if (searchTerm) params.set('search', searchTerm);
+      if (statusFilter) params.set('status', statusFilter);
       const url = params.toString() ? `${API_BASE}?${params}` : API_BASE;
       const res = await fetch(url);
       if (!res.ok) throw new Error('Failed to fetch feedbacks');
@@ -81,10 +84,18 @@
     loadingSkeleton.classList.add('d-none');
 
     if (!feedbacks || feedbacks.length === 0) {
-      if (searchTerm) {
+      if (searchTerm && statusFilter) {
+        showEmpty();
+        emptyStateTitle.textContent = 'No feedbacks found.';
+        emptyStateMessage.textContent = `No feedbacks match "${searchTerm}" for this status.`;
+      } else if (searchTerm) {
         showEmpty();
         emptyStateTitle.textContent = 'No feedbacks found.';
         emptyStateMessage.textContent = `No feedbacks match "${searchTerm}".`;
+      } else if (statusFilter) {
+        showEmpty();
+        emptyStateTitle.textContent = 'No feedbacks found for this status.';
+        emptyStateMessage.textContent = `No feedbacks with status "${statusFilter}".`;
       } else {
         showEmpty();
         emptyStateTitle.textContent = 'No feedbacks yet';
@@ -214,6 +225,11 @@
       searchTerm = this.value.trim();
       loadFeedbacks();
     }, 300);
+  });
+
+  statusFilterEl.addEventListener('change', function () {
+    statusFilter = this.value;
+    loadFeedbacks();
   });
 
   loadFeedbacks();

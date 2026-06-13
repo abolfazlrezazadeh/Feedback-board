@@ -22,10 +22,14 @@ export class FeedbackService {
   }
 
   /** Retrieve all feedbacks sorted by most recent first */
-  async findAll(search?: string): Promise<FeedbackDocument[]> {
-    const filter = search
-      ? { title: { $regex: search, $options: 'i' } }
-      : {};
+  async findAll(search?: string, status?: string): Promise<FeedbackDocument[]> {
+    const filter: Record<string, unknown> = {};
+    if (search) {
+      filter.title = { $regex: search, $options: 'i' };
+    }
+    if (status) {
+      filter.status = status;
+    }
     return this.feedbackModel.find(filter).sort({ createdAt: -1 }).exec();
   }
 
